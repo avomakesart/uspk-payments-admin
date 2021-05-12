@@ -29,7 +29,7 @@ const Order: React.FC<OrderProps> = ({}) => {
   }, [dispatch, router.isReady]);
 
   return (
-    <SideBarLayout sectionTitle='Ordenes'>
+    <SideBarLayout sectionTitle={`Pedido - #${order.id}`}>
       {error && (
         <Error
           errorType='500'
@@ -90,17 +90,20 @@ const Order: React.FC<OrderProps> = ({}) => {
           <Card>
             <div className='flex justify-between'>
               <div className='flex flex-row justify-start'>
-                <h3 className="font-bold">Articulo</h3>
+                <h3 className='font-bold'>Articulo</h3>
               </div>
               <div className='flex flex-row justify-end'>
                 <h3 className='mr-10 font-bold'>Coste</h3>
                 <h3 className='mr-10 font-bold'>Cantidad</h3>
-                <h3 className="font-bold">Total</h3>
+                <h3 className='font-bold'>Total</h3>
               </div>
             </div>
 
             {order.line_items.map((item: any) => (
-              <div className='flex justify-between items-center  mt-8' key={item.id}>
+              <div
+                className='flex justify-between items-center  mt-8'
+                key={item.id}
+              >
                 {products
                   .filter((prodItem: any) => prodItem.id === item.product_id)
                   .map((prod: any) => (
@@ -115,7 +118,7 @@ const Order: React.FC<OrderProps> = ({}) => {
                           className='max-w-full w-28'
                         />
                       ))}
-                      <h3 className="ml-4">{item.name}</h3>
+                      <h3 className='ml-4'>{item.name}</h3>
                     </div>
                   ))}
                 <div className='flex flex-row justify-end'>

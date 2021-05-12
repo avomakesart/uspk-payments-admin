@@ -17,8 +17,6 @@ const Customers: React.FC<CustomersProps> = ({}) => {
     return () => {};
   }, [dispatch]);
 
-  console.log(customers);
-
   return (
     <>
       <Head>

@@ -30,6 +30,45 @@ const getProductsById = asyncHandler(async (req, res) => {
 });
 
 // @desc fetch a single products
+// @desc POST /api/products
+// @access Public
+const createProduct = asyncHandler(async (req, res) => {
+  const data = {
+    name: req.body.name,
+    regular_price: req.body.regular_price,
+    description: req.body.description,
+    short_description: req.body.short_description,
+    categories: [
+      {
+        id: req.body.id,
+      },
+    ],
+    dimensions: [
+      {
+        length: req.body.length,
+        width: req.body.width,
+        height: req.body.height,
+      },
+    ],
+    images: [
+      {
+        src: req.body.src,
+      },
+    ],
+  };
+
+  const product = await wooCommerce.post(`products`, data);
+  const resp = await product.data;
+
+  if (product) {
+    res.json(resp);
+  } else {
+    res.status(404);
+    throw new Error('Producto no encontrado');
+  }
+});
+
+// @desc fetch a single products
 // @desc UPDATE /api/products/:id
 // @access Public
 //   const updateOrder = asyncHandler(async (req, res) => {
@@ -59,4 +98,4 @@ const deleteProduct = asyncHandler(async (req, res) => {
   throw new Error('Producto no encontrada');
 });
 
-export { getProducts, getProductsById, deleteProduct };
+export { createProduct, getProducts, getProductsById, deleteProduct };

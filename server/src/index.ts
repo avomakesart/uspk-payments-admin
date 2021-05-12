@@ -12,6 +12,7 @@ import productRoutes from './routes/productRoutes';
 import customerRoutes from './routes/customerRoutes';
 import reportRoutes from './routes/reportRoutes';
 import categoriesRoutes from './routes/categoriesRoutes';
+import taxRoutes from './routes/taxRoutes';
 // import userRoutes from './routes/userRoutes';
 
 const main = async () => {
@@ -62,6 +63,7 @@ const main = async () => {
   app.use('/api/customers', customerRoutes);
   app.use('/api/reports', reportRoutes);
   app.use('/api/categories', categoriesRoutes);
+  app.use('/api/taxes', taxRoutes);
   // app.use('/api/users', userRoutes);
 
   const __dirname = path.resolve();

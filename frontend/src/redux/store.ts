@@ -17,6 +17,10 @@ import {
   productDetailsReducer,
   productListReducer,
 } from './reducers/productReducers';
+import {
+  taxClassesDetailsReducer,
+  taxClassesListReducer,
+} from './reducers/taxClassesReducers';
 
 const reducer = combineReducers({
   orderList: orderListReducer,
@@ -27,6 +31,8 @@ const reducer = combineReducers({
   customerDetails: customerDetailsReducer,
   categoryList: categoryListReducer,
   categoryDetails: categoryDetailsReducer,
+  taxClassesList: taxClassesListReducer,
+  taxClassesDetails: taxClassesDetailsReducer,
 });
 
 const middleware = [thunk];

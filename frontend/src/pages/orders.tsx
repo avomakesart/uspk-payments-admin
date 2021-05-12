@@ -5,11 +5,13 @@ import { listOrders } from '../redux/actions/orderActions';
 import { Badge, SideBarLayout, Table, Error, Loader } from '../components';
 import { format } from 'date-fns';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 interface OrdersProps {}
 
 const Orders: React.FC<OrdersProps> = ({}) => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const orderList = useSelector((state: any) => state.orderList);
   const { loading, error, orders } = orderList;
@@ -19,19 +21,33 @@ const Orders: React.FC<OrdersProps> = ({}) => {
     return () => {};
   }, [dispatch]);
 
-  const orderData = loading
-    ? 'Loading...'
-    : orders.map((order: any) => {
-        const { id, date_created, status, total } = order;
-        const { first_name, last_name } = order.billing;
+  const orderData = orders?.map((order: any) => {
+    const { id, date_created, status, total } = order;
+    const { first_name, last_name } = order.billing;
 
-        const fullName = `${first_name} ${last_name}`;
-        const date = format(new Date(date_created), 'dd MMM, yyyy');
-        const orderStatus = <Badge orderType={status} text={status} />;
-        const orderTotal = `$${total}`;
+    const orderId = (
+      <button
+        className='cursor-pointer focus:outline-none'
+        onClick={() => router.push(`/orders/${id}`)}
+      >
+        {id}
+      </button>
+    );
+    const fullName = (
+      <button
+        className='cursor-pointer focus:outline-none'
+        onClick={() => router.push(`/orders/${id}`)}
+      >
+        {first_name} {last_name}
+      </button>
+    );
 
-        return { id, fullName, date, orderStatus, orderTotal };
-      });
+    const date = format(new Date(date_created), 'dd MMM, yyyy');
+    const orderStatus = <Badge orderType={status} text={status} />;
+    const orderTotal = `$${total}`;
+
+    return { orderId, fullName, date, orderStatus, orderTotal };
+  });
 
   return (
     <>
